@@ -1,6 +1,6 @@
 class Member < ApplicationRecord
 
-  GROUP_MEMBERS_NUM = 2
+  GROUP_MEMBERS_NUM = 5
 
   def self.pairs
     members_mod = all.to_a.count % GROUP_MEMBERS_NUM
@@ -31,7 +31,7 @@ class Member < ApplicationRecord
   end
 
   def self.lunch_pairs
-    pairs = pluck(:name, :status).shuffle.each_slice(4).to_a
+    pairs = pluck(:name, :role).shuffle.each_slice(4).to_a
 
     # 奇数の場合
     if pairs.last.length == 1
@@ -44,7 +44,7 @@ class Member < ApplicationRecord
 
   def self.lunch_template
     pairs_str = lunch_pairs.inject('') do |str, pair|
-                  str << "オススメ日: #{sample_day} ★y#{pair.sort{|a,b|a.last <=> b.last}.map{|i|"#{i.first}さん"}.join(' & ')}\n"
+                  str << "オススメ日: #{sample_day} ★#{pair.sort{|a,b|a.last <=> b.last}.map{|i|"#{i.first}さん"}.join(' & ')}\n"
                 end
 
     <<~EOS
@@ -60,7 +60,7 @@ class Member < ApplicationRecord
   end
 
   def self.lunch_deliver
-    # `echo "#{template}" | mail -s 今月のランチペアです！ all@domain.jp`
+    # `echo "#{lunch_template}" | mail -s 今月のランチペアです！ all@domain.jp`
     puts lunch_template
   end
 end
