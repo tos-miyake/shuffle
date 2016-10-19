@@ -4,7 +4,7 @@ class Member < ApplicationRecord
 
   def self.pairs
     members_mod = all.to_a.count % GROUP_MEMBERS_NUM
-    pairs = where(moring: "1").pluck(:name).shuffle.each_slice(GROUP_MEMBERS_NUM).to_a
+    pairs = where(morning: "1").pluck(:name).shuffle.each_slice(GROUP_MEMBERS_NUM).to_a
 
     if members_mod <= GROUP_MEMBERS_NUM - 2
       rest = pairs.pop
