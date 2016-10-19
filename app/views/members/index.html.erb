@@ -7,6 +7,8 @@
     <tr>
       <th>Name</th>
       <th>Role</th>
+      <th>Morning</th>
+      <th>Lunch</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +18,8 @@
       <tr>
         <td><%= member.name %></td>
         <td><%= member.role %></td>
+        <td><%= member.morning %></td>
+        <td><%= member.lunch %></td>
         <td><%= link_to 'Show', member %></td>
         <td><%= link_to 'Edit', edit_member_path(member) %></td>
         <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
